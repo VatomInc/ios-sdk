@@ -129,6 +129,7 @@ public struct RootProperties: Equatable {
     public let description: String
 
     // variables
+    public var activateAction: String
     public var category: String
     public var childPolicy: [VatomChildPolicy]
     public var clonedFrom: String
@@ -157,6 +158,7 @@ public struct RootProperties: Equatable {
     enum CodingKeys: String, CodingKey {
 
         case author
+        case activateAction      = "activate_action"
         case category
         case childPolicy         = "child_policy"
         case clonedFrom          = "cloned_from"
@@ -220,6 +222,7 @@ extension RootProperties: Codable {
     public init(from decoder: Decoder) throws {
         let items = try decoder.container(keyedBy: CodingKeys.self)
         isAcquirable        = try items.decode(Bool.self, forKey: .isAcquirable)
+        activateAction      = try items.decode(String.self, forKey: .activateAction)
         author              = try items.decode(String.self, forKey: .author)
         category            = try items.decode(String.self, forKey: .category)
         clonedFrom          = try items.decode(String.self, forKey: .clonedFrom)
@@ -256,6 +259,7 @@ extension RootProperties: Codable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(isAcquirable, forKey: .isAcquirable)
+        try container.encode(activateAction, forKey: .activateAction)
         try container.encode(author, forKey: .author)
         try container.encode(category, forKey: .category)
         try container.encode(clonedFrom, forKey: .clonedFrom)

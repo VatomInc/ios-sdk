@@ -101,6 +101,7 @@ extension RootProperties: Descriptable {
             else { throw BVError.modelDecoding(reason: "Model decoding failed.") }
 
         // decode if present
+        let _activateAction         = descriptor["activate_action"] as? String ?? ""
         let _childPolicyDescriptor  = descriptor["child_policy"] as? [[String: Any]] ?? []
         let _tags                   = descriptor["tags"] as? [String] ?? []
 
@@ -112,6 +113,7 @@ extension RootProperties: Descriptable {
         self.title = _title
         self.description = _description
 
+        self.activateAction = _activateAction
         self.category = _category
         self.childPolicy = _childPolicyDescriptor.compactMap { try? VatomChildPolicy(from: $0) }
         self.clonedFrom = _clonedFrom
